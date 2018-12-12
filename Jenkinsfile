@@ -1,15 +1,17 @@
 pipeline {
-  agent any
-  stages {
-    stage('myStage'){
-      steps {
-        sh 'ls -l'
-      }
+    agent any
+    tools { 
+        maven 'Maven 3.5.2' 
+        jdk 'jdk8' 
     }
-    stage('Build') {
-      steps { 
-        sh 'ls -l'
-      }
+    stages {
+        stage ('Build') {
+            steps {
+                echo 'This is a minimal pipeline.'
+              sh 'mvn clean'
+              sh 'mvn site'
+              sh 'mvn sonar:sonar'
+            }
+        }
     }
-  }
 }
