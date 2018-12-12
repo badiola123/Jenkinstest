@@ -1,15 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>MUBA</groupId>
-  <artifactId>MUBA</artifactId>
+
+  <groupId>edu.mondragon</groupId>
+  <artifactId>Jenkinstest</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  
+  <packaging>jar</packaging>
+
+  <name>JenkinsTest</name>
+  <url>http://maven.apache.org</url>
+
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
 	<maven.compiler.target>1.8</maven.compiler.target>
   </properties>
-  
+
   <dependencies>
   
     <dependency>
@@ -33,52 +38,58 @@
 	  <artifactId>jacoco-maven-plugin</artifactId>
 	  <version>0.7.9</version>
 	</dependency>
-	
-	<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>jstl</artifactId>
-    <version>1.2</version>
-	</dependency>
-	<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>servlet-api</artifactId>
-    <version>2.5</version>
-    <scope>provided</scope>
-</dependency>
-  <dependency>
-     <groupId>javax</groupId>
-     <artifactId>javaee-api</artifactId>
-     <version>7.0</version>
-  </dependency>
   </dependencies>
   
   <build>
-    <sourceDirectory>src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.1</version>
-        <configuration>
-          <warSourceDirectory>WebContent</warSourceDirectory>
-        </configuration>
-      </plugin>
-      <plugin>
+	<plugins>
+	  <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.0.1</version>
         <configuration>
-          <show>public</show>
+          <show>private</show>
+          <nohelp>true</nohelp>
         </configuration>
       </plugin>
-	
+	  
+	  <plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-site-plugin</artifactId>
+  <version>3.3</version>
+</plugin>
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-project-info-reports-plugin</artifactId>
+  <version>2.7</version>
+</plugin>
+	  <plugin>
+		<groupId>de.oscillation.maven</groupId>
+		<artifactId>doxygen-maven-plugin</artifactId>
+		<version>0.1.0</version>
+		<configuration>
+		  <workingDirectory>${basedir}</workingDirectory>
+		  <executable>doxygen</executable>
+		  <doxyfile>Doxyfile</doxyfile>
+		  <autogen>false</autogen>
+		</configuration>
+		<executions>
+		  <execution>
+		    <id>clean</id>
+		    <phase>clean</phase>
+		    <goals>
+			  <goal>clean</goal>
+		    </goals>
+		  </execution>
+		  <execution>
+		  	  <id>generate</id>
+			  <phase>prepare-package</phase>
+			  <goals>
+				<goal>generate</goal>
+			  </goals>
+		  </execution>
+		</executions>
+	  </plugin>
+	  
 	  <plugin>
 		<artifactId>maven-surefire-plugin</artifactId>
 		<version>2.15</version>
@@ -156,4 +167,19 @@
 	  </plugin>
     </plugins>
   </build>
+  
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.0.1</version>
+        <configuration>
+           <show>public</show>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+ 
 </project>
