@@ -7,7 +7,6 @@ pipeline {
                 echo 'This is a minimal pipeline.'
               sh 'mvn clean'
               sh 'mvn site'
-              sh 'mvn sonar:sonar'
             }
         }
     }
